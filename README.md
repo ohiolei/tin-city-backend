@@ -29,7 +29,7 @@ This repository contains the core API and services for the Jos Metro BOSS (Bus O
 -   Database: Posgresql
 -   Cache/Real-time Layer: Redis
 -   API Authentication: Laravel Sanctum (for mobile + admin web)
--   Realtime: Laravel WebSockets
+-   Realtime: Laravel WebSockets(Reverb)
 -   Storage: AWS S3
 -   Queue System: Redis Queue (for background jobs)
 -   Documentation generation: Scribe
