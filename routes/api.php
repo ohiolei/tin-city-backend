@@ -22,5 +22,6 @@ Route::prefix('v1')->group(function () {
         Route::delete('routes/{route}', [RouteController::class, 'destroy']);
     });
 
+    // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
     Route::post('login', [RouteController::class, 'login']);
 });

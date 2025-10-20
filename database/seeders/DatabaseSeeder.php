@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+
+        // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
         User::updateOrCreate(
             ['email' => 'admin@example.com'],
             [
@@ -27,7 +29,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 👤 Create Regular User
         User::updateOrCreate(
             ['email' => 'user@example.com'],
             [

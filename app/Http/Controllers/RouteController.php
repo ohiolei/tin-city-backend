@@ -100,6 +100,8 @@ class RouteController extends Controller
         ]);
     }
 
+
+    // To be removed, used for testing Gate middleware
     public function login(Request $request)
     {
         $credentials = $request->validate([
