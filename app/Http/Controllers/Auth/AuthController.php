@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password as PasswordFacade;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\URL;
 
 class AuthController extends Controller
 {
@@ -23,12 +24,19 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $user = User::create([
+        $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-        ]);
+        ];
+
+        // Only set role if provided and valid
+        if ($request->has('role')) {
+            $userData['role'] = $request->role;
+        }
+
+        $user = User::create($userData);
 
         event(new Registered($user));
 
@@ -60,12 +68,14 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
             'success' => true,
             'message' => 'Login successful',
             'data' => [
-                'user' => $user
+                'user' => $user,
+                'token' => $token
             ]
         ]);
     }
@@ -76,9 +86,10 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
+      public function logout(Request $request)
     {
-        Auth::logout();
+        // Delete the current token for Sanctum authentication
+        $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             'success' => true,
@@ -128,6 +139,59 @@ class AuthController extends Controller
                 'email' => [__($status)]
             ]
         ], 400);
+    }
+
+    /**
+     * Verify email
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @param  string  $hash
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function verifyEmail(Request $request, $id, $hash)
+    {
+        // Check if the URL is valid
+        if (!URL::hasValidSignature($request)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid verification link'
+            ], 400);
+        }
+
+        // Find the user
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        // Check if the hash matches
+        if (!hash_equals(sha1($user->getEmailForVerification()), $hash)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid verification link'
+            ], 400);
+        }
+
+        // Check if already verified
+        if ($user->hasVerifiedEmail()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email already verified'
+            ], 400);
+        }
+
+        // Mark as verified
+        $user->markEmailAsVerified();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Email verified successfully'
+        ]);
     }
 
     /**

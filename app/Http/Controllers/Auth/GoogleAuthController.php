@@ -45,20 +45,21 @@ class GoogleAuthController extends Controller
                     'name' => $googleUser->name,
                     'email' => $googleUser->email,
                     'google_id' => $googleUser->id,
-                    'password' => Hash::make(uniqid()), // Generate a random password
+                    'password' => Hash::make(uniqid()),
                     'email_verified_at' => now(),
                 ]);
             }
 
-            // Log the user in
-            Auth::login($user);
+            // Create token for API authentication
+            $token = $user->createToken('auth-token')->plainTextToken;
 
-            // Return user data
+            // Return user data and token
             return response()->json([
                 'success' => true,
                 'message' => 'Google authentication successful',
                 'data' => [
-                    'user' => $user
+                    'user' => $user,
+                    'token' => $token
                 ]
             ]);
 

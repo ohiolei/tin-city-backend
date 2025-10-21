@@ -79,7 +79,8 @@ Authenticate a user and start a session.
       "email_verified_at": null,
       "created_at": "2025-10-20T10:00:00.000000Z",
       "updated_at": "2025-10-20T10:00:00.000000Z"
-    }
+    },
+    "token": "1|abcdefghijklmnopqrstuvwxyz1234567890"
   }
 }
 ```
@@ -172,7 +173,20 @@ Authorization: Bearer {token}
 }
 ```
 
-### 7. Google OAuth Redirect
+### 7. Verify Email
+**GET** `/auth/verify-email/{id}/{hash}`
+
+Verify a user's email address.
+
+#### Success Response
+```json
+{
+  "success": true,
+  "message": "Email verified successfully"
+}
+```
+
+### 8. Google OAuth Redirect
 **GET** `/auth/redirect`
 
 Redirect user to Google for authentication.
