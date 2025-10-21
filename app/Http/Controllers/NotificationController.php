@@ -52,7 +52,6 @@ class NotificationController extends Controller
      */
     public function testNotification(SendNotificationRequest $request): JsonResponse
     {
-        dd(12);
         try {
             $validated = $request->validated();
 
