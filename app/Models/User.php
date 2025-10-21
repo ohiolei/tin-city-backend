@@ -113,8 +113,12 @@ class User extends Authenticatable
     {
         $this->increment('points', $points);
         $this->fresh();
-        
         // Dispatch job to check for new badges
         CheckUserBadges::dispatch($this);
+    }
+
+    public function is_admin(): bool
+    {
+        return $this->role === 'admin';
     }
 }
