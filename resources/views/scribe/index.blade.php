@@ -74,6 +74,7 @@
                                                     <li class="tocify-item level-2" data-unique="endpoints-GETapi-user">
                                 <a href="#endpoints-GETapi-user">GET api/user</a>
                             </li>
+<<<<<<< HEAD
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-v1-routes-export">
                                 <a href="#endpoints-GETapi-v1-routes-export">GET api/v1/routes/export</a>
                             </li>
@@ -104,6 +105,35 @@
                                     <ul id="tocify-subheader-notifications" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="notifications-POSTapi-v1-notifications-test">
                                 <a href="#notifications-POSTapi-v1-notifications-test">Send a Test Notification</a>
+=======
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-routes-management" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="routes-management">
+                    <a href="#routes-management">Routes Management</a>
+                </li>
+                                    <ul id="tocify-subheader-routes-management" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="routes-management-GETapi-v1-routes-export">
+                                <a href="#routes-management-GETapi-v1-routes-export">Export all static routes in JSON format for mobile app usage.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="routes-management-GETapi-v1-routes">
+                                <a href="#routes-management-GETapi-v1-routes">Display a listing of all available routes.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="routes-management-GETapi-v1-routes--id-">
+                                <a href="#routes-management-GETapi-v1-routes--id-">Display a specific route by ID.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="routes-management-POSTapi-v1-routes">
+                                <a href="#routes-management-POSTapi-v1-routes">Store a newly created route (Admin only).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="routes-management-PUTapi-v1-routes--route_id-">
+                                <a href="#routes-management-PUTapi-v1-routes--route_id-">Update an existing route (Admin only).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="routes-management-DELETEapi-v1-routes--route_id-">
+                                <a href="#routes-management-DELETEapi-v1-routes--route_id-">Delete a route (Admin only).</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="routes-management-POSTapi-v1-login">
+                                <a href="#routes-management-POSTapi-v1-login">Authenticate a user (testing endpoint).</a>
+>>>>>>> staging
                             </li>
                                                                         </ul>
                             </ul>
@@ -263,7 +293,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
+<<<<<<< HEAD
                     <h2 id="endpoints-GETapi-v1-routes-export">GET api/v1/routes/export</h2>
+=======
+                <h1 id="routes-management">Routes Management</h1>
+
+    <p>APIs for managing and retrieving bus routes within the Jos Metro BOSS system.</p>
+<p>These endpoints handle both public and admin operations for static routes.</p>
+<p>Base URL: <code>/api/v1/routes</code></p>
+
+                                <h2 id="routes-management-GETapi-v1-routes-export">Export all static routes in JSON format for mobile app usage.</h2>
+>>>>>>> staging
 
 <p>
 </p>
@@ -300,6 +340,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-routes-export">
             <blockquote>
+<<<<<<< HEAD
             <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
@@ -314,6 +355,15 @@ access-control-allow-origin: *
 <code class="language-json" style="max-height: 300px;">{
     &quot;exported_at&quot;: &quot;2025-10-21T13:03:09.434039Z&quot;,
     &quot;routes&quot;: []
+=======
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+  &quot;exported_at&quot;: &quot;2025-10-18T15:00:00Z&quot;,
+  &quot;routes&quot;: [...]
+>>>>>>> staging
 }</code>
  </pre>
     </span>
@@ -388,7 +438,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
+<<<<<<< HEAD
                     <h2 id="endpoints-GETapi-v1-routes">Display a listing of the resource.</h2>
+=======
+                    <h2 id="routes-management-GETapi-v1-routes">Display a listing of all available routes.</h2>
+>>>>>>> staging
 
 <p>
 </p>
@@ -425,6 +479,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-routes">
             <blockquote>
+<<<<<<< HEAD
             <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
@@ -437,6 +492,23 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">[]</code>
+=======
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Terminus to Bukuru&quot;,
+            &quot;encoded_polyline&quot;: &quot;mfp_Ijk~hE...&quot;,
+            &quot;distance&quot;: 8.3,
+            &quot;created_at&quot;: &quot;2025-10-18T12:00:00Z&quot;
+        }
+    ]
+}</code>
+>>>>>>> staging
  </pre>
     </span>
 <span id="execution-results-GETapi-v1-routes" hidden>
@@ -510,7 +582,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
+<<<<<<< HEAD
                     <h2 id="endpoints-GETapi-v1-routes--id-">Display the specified resource.</h2>
+=======
+                    <h2 id="routes-management-GETapi-v1-routes--id-">Display a specific route by ID.</h2>
+>>>>>>> staging
 
 <p>
 </p>
@@ -523,14 +599,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
+<<<<<<< HEAD
     --get "http://localhost/api/v1/routes/16" \
+=======
+    --get "http://localhost/api/v1/routes/1" \
+>>>>>>> staging
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
+<<<<<<< HEAD
     "http://localhost/api/v1/routes/16"
+=======
+    "http://localhost/api/v1/routes/1"
+>>>>>>> staging
 );
 
 const headers = {
@@ -547,6 +631,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-routes--id-">
             <blockquote>
+<<<<<<< HEAD
             <p>Example response (404):</p>
         </blockquote>
                 <details class="annotation">
@@ -560,6 +645,29 @@ access-control-allow-origin: *
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;message&quot;: &quot;No query results for model [App\\Models\\Route] 16&quot;
+=======
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Terminus to Bukuru&quot;,
+        &quot;encoded_polyline&quot;: &quot;mfp_Ijk~hE...&quot;,
+        &quot;distance&quot;: 8.3,
+        &quot;created_at&quot;: &quot;2025-10-18T12:00:00Z&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Route not found&quot;
+>>>>>>> staging
 }</code>
  </pre>
     </span>
@@ -639,6 +747,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-v1-routes--id-"
+<<<<<<< HEAD
                value="16"
                data-component="url">
     <br>
@@ -649,6 +758,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     <h2 id="endpoints-POSTapi-v1-routes">Store a newly created resource in storage.</h2>
 
 <p>
+=======
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the route. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="routes-management-POSTapi-v1-routes">Store a newly created route (Admin only).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+>>>>>>> staging
 </p>
 
 
@@ -663,6 +785,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
+<<<<<<< HEAD
     \"name\": \"b\",
     \"start_point\": \"n\",
     \"end_point\": \"g\",
@@ -676,6 +799,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
             \"order_index\": 16
         }
     ]
+=======
+    \"name\": \"Terminus to Bukuru\",
+    \"start_point\": \"n\",
+    \"end_point\": \"g\",
+    \"encoded_polyline\": \"mfp_Ijk~hEo}@yDa@e...\",
+    \"distance_km\": 39,
+    \"stops\": [
+        \"architecto\"
+    ],
+    \"distance\": 8.3
+>>>>>>> staging
 }"
 </code></pre></div>
 
@@ -691,6 +825,7 @@ const headers = {
 };
 
 let body = {
+<<<<<<< HEAD
     "name": "b",
     "start_point": "n",
     "end_point": "g",
@@ -704,6 +839,17 @@ let body = {
             "order_index": 16
         }
     ]
+=======
+    "name": "Terminus to Bukuru",
+    "start_point": "n",
+    "end_point": "g",
+    "encoded_polyline": "mfp_Ijk~hEo}@yDa@e...",
+    "distance_km": 39,
+    "stops": [
+        "architecto"
+    ],
+    "distance": 8.3
+>>>>>>> staging
 };
 
 fetch(url, {
@@ -715,7 +861,26 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-routes">
+<<<<<<< HEAD
 </span>
+=======
+            <blockquote>
+            <p>Example response (201, Created):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Terminus to Bukuru&quot;,
+        &quot;encoded_polyline&quot;: &quot;mfp_Ijk~hE...&quot;,
+        &quot;distance&quot;: 8.3,
+        &quot;created_at&quot;: &quot;2025-10-18T12:00:00Z&quot;
+    }
+}</code>
+ </pre>
+    </span>
+>>>>>>> staging
 <span id="execution-results-POSTapi-v1-routes" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-routes"></span>:
@@ -733,7 +898,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-v1-routes" data-method="POST"
       data-path="api/v1/routes"
+<<<<<<< HEAD
       data-authed="0"
+=======
+      data-authed="1"
+>>>>>>> staging
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -792,10 +961,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-v1-routes"
+<<<<<<< HEAD
                value="b"
                data-component="body">
     <br>
 <p>Must not be greater than 255 characters. Example: <code>b</code></p>
+=======
+               value="Terminus to Bukuru"
+               data-component="body">
+    <br>
+<p>The name of the route. Example: <code>Terminus to Bukuru</code></p>
+>>>>>>> staging
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>start_point</code></b>&nbsp;&nbsp;
@@ -825,10 +1001,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="encoded_polyline"                data-endpoint="POSTapi-v1-routes"
+<<<<<<< HEAD
                value="architecto"
                data-component="body">
     <br>
 <p>Example: <code>architecto</code></p>
+=======
+               value="mfp_Ijk~hEo}@yDa@e..."
+               data-component="body">
+    <br>
+<p>Google Maps encoded polyline representing the route path. Example: <code>mfp_Ijk~hEo}@yDa@e...</code></p>
+>>>>>>> staging
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>distance_km</code></b>&nbsp;&nbsp;
@@ -845,10 +1028,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <details>
             <summary style="padding-bottom: 10px;">
                 <b style="line-height: 2;"><code>stops</code></b>&nbsp;&nbsp;
+<<<<<<< HEAD
 <small>object[]</small>&nbsp;
 <i>optional</i> &nbsp;
 <br>
 
+=======
+<small>string[]</small>&nbsp;
+<i>optional</i> &nbsp;
+<br>
+<p>Optional list of stops related to the route.</p>
+>>>>>>> staging
             </summary>
                                                 <div style="margin-left: 14px; clear: unset;">
                         <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
@@ -896,11 +1086,31 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     </div>
                                     </details>
         </div>
+<<<<<<< HEAD
         </form>
 
                     <h2 id="endpoints-PUTapi-v1-routes--route_id-">Update the specified resource in storage.</h2>
 
 <p>
+=======
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>distance</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="distance"                data-endpoint="POSTapi-v1-routes"
+               value="8.3"
+               data-component="body">
+    <br>
+<p>The total distance (in km). Example: <code>8.3</code></p>
+        </div>
+        </form>
+
+                    <h2 id="routes-management-PUTapi-v1-routes--route_id-">Update an existing route (Admin only).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+>>>>>>> staging
 </p>
 
 
@@ -911,11 +1121,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
+<<<<<<< HEAD
     "http://localhost/api/v1/routes/16" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
     \"name\": \"b\",
+=======
+    "http://localhost/api/v1/routes/1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"architecto\",
+>>>>>>> staging
     \"start_point\": \"n\",
     \"end_point\": \"g\",
     \"encoded_polyline\": \"architecto\",
@@ -927,14 +1145,23 @@ You can check the Dev Tools console for debugging information.</code></pre>
             \"longitude\": 4326.41688,
             \"order_index\": 16
         }
+<<<<<<< HEAD
     ]
+=======
+    ],
+    \"distance\": 4326.41688
+>>>>>>> staging
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
+<<<<<<< HEAD
     "http://localhost/api/v1/routes/16"
+=======
+    "http://localhost/api/v1/routes/1"
+>>>>>>> staging
 );
 
 const headers = {
@@ -943,7 +1170,11 @@ const headers = {
 };
 
 let body = {
+<<<<<<< HEAD
     "name": "b",
+=======
+    "name": "architecto",
+>>>>>>> staging
     "start_point": "n",
     "end_point": "g",
     "encoded_polyline": "architecto",
@@ -955,7 +1186,12 @@ let body = {
             "longitude": 4326.41688,
             "order_index": 16
         }
+<<<<<<< HEAD
     ]
+=======
+    ],
+    "distance": 4326.41688
+>>>>>>> staging
 };
 
 fetch(url, {
@@ -967,7 +1203,34 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-v1-routes--route_id-">
+<<<<<<< HEAD
 </span>
+=======
+            <blockquote>
+            <p>Example response (200, Updated):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Terminus to Bukuru (Updated)&quot;,
+        &quot;encoded_polyline&quot;: &quot;xyz123...&quot;,
+        &quot;distance&quot;: 9.1
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Forbidden):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;You are not authorized to perform this action&quot;
+}</code>
+ </pre>
+    </span>
+>>>>>>> staging
 <span id="execution-results-PUTapi-v1-routes--route_id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-v1-routes--route_id-"></span>:
@@ -985,7 +1248,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-PUTapi-v1-routes--route_id-" data-method="PUT"
       data-path="api/v1/routes/{route_id}"
+<<<<<<< HEAD
       data-authed="0"
+=======
+      data-authed="1"
+>>>>>>> staging
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -1044,10 +1311,28 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="route_id"                data-endpoint="PUTapi-v1-routes--route_id-"
+<<<<<<< HEAD
                value="16"
                data-component="url">
     <br>
 <p>The ID of the route. Example: <code>16</code></p>
+=======
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the route. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>route</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="route"                data-endpoint="PUTapi-v1-routes--route_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the route to update. Example: <code>1</code></p>
+>>>>>>> staging
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1056,10 +1341,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-routes--route_id-"
+<<<<<<< HEAD
                value="b"
                data-component="body">
     <br>
 <p>Must not be greater than 255 characters. Example: <code>b</code></p>
+=======
+               value="architecto"
+               data-component="body">
+    <br>
+<p>optional The updated name of the route. Example: <code>architecto</code></p>
+>>>>>>> staging
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>start_point</code></b>&nbsp;&nbsp;
@@ -1092,7 +1384,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="architecto"
                data-component="body">
     <br>
+<<<<<<< HEAD
 <p>Example: <code>architecto</code></p>
+=======
+<p>optional Updated Google Maps polyline. Example: <code>architecto</code></p>
+>>>>>>> staging
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>distance_km</code></b>&nbsp;&nbsp;
@@ -1160,11 +1456,31 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     </div>
                                     </details>
         </div>
+<<<<<<< HEAD
         </form>
 
                     <h2 id="endpoints-DELETEapi-v1-routes--route_id-">Remove the specified resource from storage.</h2>
 
 <p>
+=======
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>distance</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="distance"                data-endpoint="PUTapi-v1-routes--route_id-"
+               value="4326.41688"
+               data-component="body">
+    <br>
+<p>optional Updated distance (in km). Example: <code>4326.41688</code></p>
+        </div>
+        </form>
+
+                    <h2 id="routes-management-DELETEapi-v1-routes--route_id-">Delete a route (Admin only).</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+>>>>>>> staging
 </p>
 
 
@@ -1175,14 +1491,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
+<<<<<<< HEAD
     "http://localhost/api/v1/routes/16" \
+=======
+    "http://localhost/api/v1/routes/1" \
+>>>>>>> staging
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
+<<<<<<< HEAD
     "http://localhost/api/v1/routes/16"
+=======
+    "http://localhost/api/v1/routes/1"
+>>>>>>> staging
 );
 
 const headers = {
@@ -1198,7 +1522,29 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-v1-routes--route_id-">
+<<<<<<< HEAD
 </span>
+=======
+            <blockquote>
+            <p>Example response (200, Deleted):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Route deleted successfully&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Route not found&quot;
+}</code>
+ </pre>
+    </span>
+>>>>>>> staging
 <span id="execution-results-DELETEapi-v1-routes--route_id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-v1-routes--route_id-"></span>:
@@ -1216,7 +1562,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-DELETEapi-v1-routes--route_id-" data-method="DELETE"
       data-path="api/v1/routes/{route_id}"
+<<<<<<< HEAD
       data-authed="0"
+=======
+      data-authed="1"
+>>>>>>> staging
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -1275,6 +1625,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="route_id"                data-endpoint="DELETEapi-v1-routes--route_id-"
+<<<<<<< HEAD
                value="16"
                data-component="url">
     <br>
@@ -1283,6 +1634,27 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     </form>
 
                     <h2 id="endpoints-POSTapi-v1-login">POST api/v1/login</h2>
+=======
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the route. Example: <code>1</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>route</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="route"                data-endpoint="DELETEapi-v1-routes--route_id-"
+               value="1"
+               data-component="url">
+    <br>
+<p>The ID of the route to delete. Example: <code>1</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="routes-management-POSTapi-v1-login">Authenticate a user (testing endpoint).</h2>
+>>>>>>> staging
 
 <p>
 </p>
@@ -1299,8 +1671,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
+<<<<<<< HEAD
     \"email\": \"gbailey@example.net\",
     \"password\": \"architecto\"
+=======
+    \"email\": \"test@example.com\",
+    \"password\": \"password\"
+>>>>>>> staging
 }"
 </code></pre></div>
 
@@ -1316,8 +1693,13 @@ const headers = {
 };
 
 let body = {
+<<<<<<< HEAD
     "email": "gbailey@example.net",
     "password": "architecto"
+=======
+    "email": "test@example.com",
+    "password": "password"
+>>>>>>> staging
 };
 
 fetch(url, {
@@ -1329,7 +1711,35 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-login">
+<<<<<<< HEAD
 </span>
+=======
+            <blockquote>
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;user&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Test Admin&quot;,
+        &quot;email&quot;: &quot;test@example.com&quot;,
+        &quot;role&quot;: &quot;admin&quot;
+    },
+    &quot;token&quot;: &quot;1|XyzABC123...&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Unauthorized):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Invalid credentials&quot;
+}</code>
+ </pre>
+    </span>
+>>>>>>> staging
 <span id="execution-results-POSTapi-v1-login" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-login"></span>:
@@ -1406,10 +1816,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-v1-login"
+<<<<<<< HEAD
                value="gbailey@example.net"
                data-component="body">
     <br>
 <p>Must be a valid email address. Example: <code>gbailey@example.net</code></p>
+=======
+               value="test@example.com"
+               data-component="body">
+    <br>
+<p>The user's email address. Example: <code>test@example.com</code></p>
+>>>>>>> staging
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -1417,6 +1834,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-v1-login"
+<<<<<<< HEAD
                value="architecto"
                data-component="body">
     <br>
@@ -1632,6 +2050,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>optional The type of notification. Must be one of: reward, route_update, admin_alert. Example: <code>"reward"</code></p>
+=======
+               value="password"
+               data-component="body">
+    <br>
+<p>The user's password. Example: <code>password</code></p>
+>>>>>>> staging
         </div>
         </form>
 
