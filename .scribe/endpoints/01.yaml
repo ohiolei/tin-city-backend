@@ -376,7 +376,7 @@ endpoints:
         name: route_id
         description: 'The ID of the route.'
         required: true
-        example: 1
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -393,7 +393,7 @@ endpoints:
         nullable: false
         custom: []
     cleanUrlParameters:
-      route_id: 1
+      route_id: 16
       route: 1
     queryParameters: []
     cleanQueryParameters: []
@@ -577,7 +577,7 @@ endpoints:
         name: route_id
         description: 'The ID of the route.'
         required: true
-        example: 1
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -594,7 +594,7 @@ endpoints:
         nullable: false
         custom: []
     cleanUrlParameters:
-      route_id: 1
+      route_id: 16
       route: 1
     queryParameters: []
     cleanQueryParameters: []
