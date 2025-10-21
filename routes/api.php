@@ -4,6 +4,8 @@ use App\Http\Controllers\BadgeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,6 +22,18 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user()->badges;
     });
 });
+
+
+// for admin only
+
+Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+    Route::get('/admin/contributions', [AdminController::class, 'contributions']);
+    Route::get('/admin/users', [AdminController::class, 'users']);
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+   
+});
+
+
 
 Route::prefix('v1')->group(function () {
     // Public endpoints
