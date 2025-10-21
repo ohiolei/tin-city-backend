@@ -12,9 +12,9 @@ Route::get('/user', function (Request $request) {
 
 // Badge Management Routes (Admin Only)
 Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+    Route::apiResource('badges', BadgeController::class);
 });
 
-Route::apiResource('badges', BadgeController::class);
 // User Badge Routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/badges', function (Request $request) {
