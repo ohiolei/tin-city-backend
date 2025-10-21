@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RouteController;
@@ -11,9 +12,9 @@ Route::get('/user', function (Request $request) {
 
 // Badge Management Routes (Admin Only)
 Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
-    Route::apiResource('badges', BadgeController::class);
 });
 
+Route::apiResource('badges', BadgeController::class);
 // User Badge Routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/badges', function (Request $request) {
@@ -36,4 +37,8 @@ Route::prefix('v1')->group(function () {
 
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
     Route::post('login', [RouteController::class, 'login']);
+
+    Route::prefix('notifications')->group(function () {
+        Route::post('test', [NotificationController::class, 'testNotification']);
+    });
 });
