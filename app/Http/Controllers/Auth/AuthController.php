@@ -24,25 +24,19 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $userData = [
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-        ];
-
-        // Only set role if provided and valid
-        if ($request->has('role')) {
-            $userData['role'] = $request->role;
-        }
-
-        $user = User::create($userData);
+            'role' => 'user',
+        ]);
 
         event(new Registered($user));
 
         return response()->json([
             'success' => true,
-            'message' => 'User registered successfully',
+            'message' => 'Account registered successfully',
             'data' => [
                 'user' => $user
             ]
