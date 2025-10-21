@@ -110,7 +110,7 @@ class RouteController extends Controller
         ]);
 
         if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
         }
 
         $user = Auth::user();
