@@ -13,7 +13,7 @@ class FcmService
 
     public function __construct()
     {
-        $this->projectId = env('FIREBASE_PROJECT_ID');
+        $this->projectId = config('services.fcm.project_id');
         $this->accessToken = $this->getAccessToken();
     }
 

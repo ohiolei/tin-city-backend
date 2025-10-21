@@ -2,40 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
+use App\Http\Requests\SendNotificationRequest;
 use App\Services\FcmService;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * @group Notifications
+ *
+ * APIs for managing push notifications
+ */
 class NotificationController extends Controller
 {
-    protected $fcmService;
+    protected FcmService $fcmService;
 
     public function __construct(FcmService $fcmService)
     {
         $this->fcmService = $fcmService;
     }
 
-    // POST /api/notifications/test
-    public function testNotification(Request $request)
+    /**
+     * Send a Test Notification
+     *
+     * This endpoint sends a push notification to a device using Firebase Cloud Messaging (FCM).
+     *
+     * @bodyParam token string required The FCM device token. Example: "dYV1S2A4-abc123xyz"
+     * @bodyParam title string required The title of the notification. Example: "Reward Earned"
+     * @bodyParam body string required The notification message body. Example: "You received 50 bonus points!"
+     * @bodyParam type string optional The type of notification. Must be one of: reward, route_update, admin_alert. Example: "reward"
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "Notification sent successfully!",
+     *   "response": {
+     *     "name": "projects/.../messages/12345"
+     *   }
+     * }
+     * @response 422 {
+     *   "success": false,
+     *   "message": "Validation failed",
+     *   "errors": {
+     *     "token": ["The token field is required."]
+     *   }
+     * }
+     * @response 500 {
+     *   "success": false,
+     *   "message": "Failed to send notification.",
+     *   "error": "Server error message"
+     * }
+     */
+    public function testNotification(SendNotificationRequest $request): JsonResponse
     {
+        dd(12);
         try {
-            // Manual validation catch block
-            try {
-                $validated = $request->validate([
-                    'token' => 'required|string',
-                    'title' => 'required|string',
-                    'body'  => 'required|string',
-                    'type'  => 'nullable|string|in:reward,route_update,admin_alert'
-                ]);
-            } catch (ValidationException $e) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Validation failed',
-                    'errors'  => $e->errors(),
-                ], 422);
-            }
+            $validated = $request->validated();
 
-            // Send notification using FCM service
             $response = $this->fcmService->sendNotification(
                 $validated['token'],
                 $validated['title'],
