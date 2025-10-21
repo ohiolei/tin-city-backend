@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RouteController;
@@ -24,4 +25,8 @@ Route::prefix('v1')->group(function () {
 
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
     Route::post('login', [RouteController::class, 'login']);
+
+    Route::prefix('notifications')->group(function () {
+        Route::post('test', [NotificationController::class, 'testNotification']);
+    });
 });
