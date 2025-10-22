@@ -11,14 +11,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-
-// User Badge Routes
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user/badges', function (Request $request) {
-        return $request->user()->badges;
-    });
-});
-
 Route::prefix('v1')->group(function () {
     Route::prefix('routes')->group(function () {
         // Public endpoints
@@ -33,16 +25,15 @@ Route::prefix('v1')->group(function () {
             Route::delete('{route}', [RouteController::class, 'destroy']);
         });
     });
-// Badge endpoints for Admin
     Route::prefix('badges')->group(function () {
-        
         Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+            // Badge endpoints for Admin
+            Route::get('', [BadgeController::class, 'index']);
+            Route::post('', [BadgeController::class, 'store']);
+            Route::get('{id}', [BadgeController::class, 'show']);
+            Route::put('{badge}', [BadgeController::class, 'update']);
+            Route::delete('{badge}', [BadgeController::class, 'destroy']);
         });
-        Route::get('', [BadgeController::class, 'index']);
-        Route::post('', [BadgeController::class, 'store']);
-        Route::get('{id}', [BadgeController::class, 'show']);
-        Route::put('{badge}', [BadgeController::class, 'update']);
-        Route::delete('{badge}', [BadgeController::class, 'destroy']);
     });
 
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
