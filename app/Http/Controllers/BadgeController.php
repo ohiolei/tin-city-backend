@@ -68,7 +68,7 @@ class BadgeController extends Controller
      * @bodyParam name string required The name of the badge. Example: John Doe
      *@bodyParam description string required The description of the badge Example: I'm a fan 
      
-     *bodyParam points_required required integer The points_required of the badge assigned Example : 100points
+     *@bodyParam points_required required integer The points_required of the badge assigned Example : 100points
      *
      * @response 201 scenario="Created" {
      *   "data": {
