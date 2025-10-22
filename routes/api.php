@@ -44,6 +44,10 @@ Route::prefix('v1')->group(function () {
 
     // Admin dashboard and management endpoints
     Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+        Route::get('admin/dashboard', [AdminController::class, 'dashboard']);
+        Route::get('admin/contributions', [AdminController::class, 'contributions']);
+        Route::get('admin/routes', [AdminController::class, 'routes']);
+        Route::get('admin/users', [AdminController::class, 'users']);
     });
     
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
@@ -53,8 +57,3 @@ Route::prefix('v1')->group(function () {
         Route::post('test', [NotificationController::class, 'testNotification']);
     });
 });
-
-Route::get('admin/dashboard', [AdminController::class, 'dashboard']);
-Route::get('admin/contributions', [AdminController::class, 'contributions']);
-Route::get('admin/routes', [AdminController::class, 'routes']);
-Route::get('admin/users', [AdminController::class, 'users']);
