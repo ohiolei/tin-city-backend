@@ -10,10 +10,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// Badge Management Routes (Admin Only)
-Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
-    Route::apiResource('badges', BadgeController::class);
-});
+
 
 // User Badge Routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -36,7 +33,17 @@ Route::prefix('v1')->group(function () {
             Route::delete('{route}', [RouteController::class, 'destroy']);
         });
     });
-
+// Badge endpoints for Admin
+    Route::prefix('badges')->group(function () {
+        
+        Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+            Route::get('', [BadgeController::class, 'index']);
+            Route::post('', [BadgeController::class, 'store']);
+            Route::get('{id}', [BadgeController::class, 'show']);
+            Route::put('{badge}', [BadgeController::class, 'update']);
+            Route::delete('{badge}', [BadgeController::class, 'destroy']);
+        });
+    });
 
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
     Route::post('login', [RouteController::class, 'login']);
