@@ -11,16 +11,17 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show']);
-    Route::put('/profile', [ProfileController::class, 'update']);
-});
+
 Route::prefix('v1')->group(function () {
     // Public endpoints
     Route::get('routes/export', [RouteController::class, 'export']);
     Route::get('routes', [RouteController::class, 'index']);
     Route::get('routes/{id}', [RouteController::class, 'show']);
 
+    Route::prefix('/profile')->middleware('auth:sanctum')->group(function () {
+        Route::get('/', [ProfileController::class, 'show']);
+        Route::put('/', [ProfileController::class, 'update']);
+    });
     // Admin-only endpoints
     Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
         Route::post('routes', [RouteController::class, 'store']);
