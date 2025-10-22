@@ -86,4 +86,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserBadge::class);
     }
+
+    public function is_admin(): bool
+    {
+        return $this->role === 'admin';
+    }
 }
