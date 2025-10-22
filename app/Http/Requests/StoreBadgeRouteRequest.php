@@ -11,7 +11,7 @@ class StoreBadgeRouteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Authorization handled via middleware (e.g., admin-only access)
+       
         return true;
     }
 

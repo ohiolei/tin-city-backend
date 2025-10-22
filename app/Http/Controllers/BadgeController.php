@@ -14,22 +14,13 @@ use Illuminate\Validation\ValidationException;
 
 /**
  * @group Badge Management
- *
  * APIs for managing and assigning badge .
- *
  * These endpoints handle badge CRUD functionalities.
- *
  * Base URL: `/api/v1/badges`
  */
 class BadgeController extends Controller
 {
     /**
-     */
-    
-    
-    /**
-     
-    *
      * Display a listing of the badges.
      * @response 200 scenario="Success" {
      *   "data": [
@@ -57,12 +48,7 @@ class BadgeController extends Controller
     /**
      * 
      * @throws ValidationException
-    */
-    
-    /**
-        * Store a newly created badge in storage.
-     
-     *
+     * Store a newly created badge in storage.
      * @authenticated
      *
      * @bodyParam name string required The name of the badge. Example: John Doe
@@ -93,14 +79,10 @@ class BadgeController extends Controller
         );
     }
 
+
     /**
-     */
-    /**
-     
-    *
      * Display the specified badge.
      * @urlParam id integer required The ID of the badge. Example: 1
-     *
      * @response 200 scenario="Success" {
      *   "data": {
      *     "id": 1,
@@ -115,7 +97,6 @@ class BadgeController extends Controller
      */
     public function show($id): JsonResponse
     {
-        // $badge = Badge::find($id);
         $badge = Badge::where('id', $id)->first();
 
         if (!$badge) {
@@ -129,28 +110,20 @@ class BadgeController extends Controller
 
         return response()->json(
             [
-                'message' => 'Badge retrived successfully',
-                'badge' => $badge,
+                'message' => 'Badge retrieved successfully',
+                'badge' => new BadgeResource($badge),
             ],
             Response::HTTP_OK
         );
     }
 
-    /**
-     * 
+    /** 
      * @throws ValidationException
-    */
-    
-    /**
-      * Update the specified badge in storage.
-     
-     *
+     * Update the specified badge in storage.
      * @authenticated
-     *
      * @urlParam route integer required The ID of the badge to update. Example: 1
      * @bodyParam name string optional The updated name of the badge.
      * @bodyParam description optional The description updated
-     *
      * @response 200 scenario="Updated" {
      *   "data": {
      *     "id": 1,
@@ -174,15 +147,8 @@ class BadgeController extends Controller
     }
 
     /**
-     */
-    
-    
-    /**
-     
      * Remove the specified badge from storage.
-     *
      * @authenticated
-     *
      * @urlParam route integer required The ID of the badge to delete. Example: 1
      * @response 200 scenario="Deleted" {"message": "badge deleted successfully"}
      * @response 404 scenario="Not Found" {"error": "badge not found"}
@@ -195,8 +161,8 @@ class BadgeController extends Controller
 
         $badge->delete();
         return response()->json(
-                ['message' => 'Badge deleted successfully'],
-                Response::HTTP_OK
+            ['message' => 'Badge deleted successfully'],
+            Response::HTTP_OK
         );
     }
 }

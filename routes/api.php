@@ -37,12 +37,12 @@ Route::prefix('v1')->group(function () {
     Route::prefix('badges')->group(function () {
         
         Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
-            Route::get('', [BadgeController::class, 'index']);
-            Route::post('', [BadgeController::class, 'store']);
-            Route::get('{id}', [BadgeController::class, 'show']);
-            Route::put('{badge}', [BadgeController::class, 'update']);
-            Route::delete('{badge}', [BadgeController::class, 'destroy']);
         });
+        Route::get('', [BadgeController::class, 'index']);
+        Route::post('', [BadgeController::class, 'store']);
+        Route::get('{id}', [BadgeController::class, 'show']);
+        Route::put('{badge}', [BadgeController::class, 'update']);
+        Route::delete('{badge}', [BadgeController::class, 'destroy']);
     });
 
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
