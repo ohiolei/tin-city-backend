@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password as PasswordFacade;
@@ -25,10 +27,29 @@ class AuthController extends Controller
     /**
      * Register a new user
      *
+     * @bodyParam name string required The name of the user. Example: John Doe
+     * @bodyParam email string required The email of the user. Example: john@example.com
+     * @bodyParam password string required The password of the user. Example: password
+     * @bodyParam password_confirmation string required The password confirmation. Example: password
+     * @bodyParam phone string required The phone number of the user. Example: +1234567890
+     *
      * @param  \App\Http\Requests\Auth\RegisterRequest  $request
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @response 201 {
+     *   "success": true,
+     *   "message": "Account registered successfully",
+     *   "data": {
+     *     "user": {}
+     *   }
+     * }
+     * @response 422 {
+     *   "success": false,
+     *   "message": "The given data was invalid.",
+     *   "errors": {}
+     * }
      */
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         $user = User::create([
             'name' => $request->name,
@@ -44,7 +65,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Account registered successfully',
             'data' => [
-                'user' => $user
+                'user' => new UserResource($user)
             ]
         ], 201);
     }
@@ -52,10 +73,29 @@ class AuthController extends Controller
     /**
      * Login user
      *
+     * @bodyParam email string required The email of the user. Example: john@example.com
+     * @bodyParam password string required The password of the user. Example: password
+     *
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "Login successful",
+     *   "data": {
+     *     "user": {},
+     *     "token": "1|abcdefghijklmnopqrstuvwxyz"
+     *   }
+     * }
+     * @response 401 {
+     *   "success": false,
+     *   "message": "Invalid credentials",
+     *   "errors": {
+     *     "email": ["The provided credentials are incorrect."]
+     *   }
+     * }
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
@@ -74,7 +114,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Login successful',
             'data' => [
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => $token
             ]
         ]);
@@ -85,8 +125,17 @@ class AuthController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "Logged out successfully"
+     * }
+     * @response 401 {
+     *   "success": false,
+     *   "message": "Unauthenticated."
+     * }
      */
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         // Delete the current token for Sanctum authentication
         $request->user()->currentAccessToken()->delete();
@@ -102,13 +151,24 @@ class AuthController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "data": {
+     *     "user": {}
+     *   }
+     * }
+     * @response 401 {
+     *   "success": false,
+     *   "message": "Unauthenticated."
+     * }
      */
-    public function user(Request $request)
+    public function user(Request $request): JsonResponse
     {
         return response()->json([
             'success' => true,
             'data' => [
-                'user' => $request->user()
+                'user' => new UserResource($request->user())
             ]
         ]);
     }
@@ -116,10 +176,22 @@ class AuthController extends Controller
     /**
      * Send password reset link
      *
+     * @bodyParam email string required The email of the user. Example: john@example.com
+     *
      * @param  \App\Http\Requests\Auth\ForgotPasswordRequest  $request
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "Password reset link sent to your email"
+     * }
+     * @response 400 {
+     *   "success": false,
+     *   "message": "Failed to send password reset link",
+     *   "errors": {}
+     * }
      */
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $status = PasswordFacade::sendResetLink(
             $request->only('email')
@@ -148,8 +220,21 @@ class AuthController extends Controller
      * @param  int  $id
      * @param  string  $hash
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "Email verified successfully"
+     * }
+     * @response 400 {
+     *   "success": false,
+     *   "message": "Invalid verification link"
+     * }
+     * @response 404 {
+     *   "success": false,
+     *   "message": "User not found"
+     * }
      */
-    public function verifyEmail(Request $request, $id, $hash)
+    public function verifyEmail(Request $request, $id, $hash): JsonResponse
     {
         // Check if the URL is valid
         if (!URL::hasValidSignature($request)) {
@@ -159,7 +244,6 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // Find the user
         $user = User::find($id);
 
         if (!$user) {
@@ -169,7 +253,6 @@ class AuthController extends Controller
             ], 404);
         }
 
-        // Check if the hash matches
         if (!hash_equals(sha1($user->getEmailForVerification()), $hash)) {
             return response()->json([
                 'success' => false,
@@ -177,7 +260,6 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // Check if already verified
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'success' => false,
@@ -185,7 +267,6 @@ class AuthController extends Controller
             ], 400);
         }
 
-        // Mark as verified
         $user->markEmailAsVerified();
 
         return response()->json([
@@ -199,8 +280,17 @@ class AuthController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
+     *
+     * @response 200 {
+     *   "success": true,
+     *   "message": "Verification email resent successfully"
+     * }
+     * @response 400 {
+     *   "success": false,
+     *   "message": "Email already verified"
+     * }
      */
-    public function resendVerificationEmail(Request $request)
+    public function resendVerificationEmail(Request $request): JsonResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
             return response()->json([
