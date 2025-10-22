@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Password as PasswordFacade;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\URL;
 
+/**
+ * Controller for handling standard authentication operations
+ *
+ * This controller provides methods for user registration, login, logout,
+ * password reset, and email verification.
+ */
 class AuthController extends Controller
 {
     /**
@@ -80,7 +86,7 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-      public function logout(Request $request)
+    public function logout(Request $request)
     {
         // Delete the current token for Sanctum authentication
         $request->user()->currentAccessToken()->delete();

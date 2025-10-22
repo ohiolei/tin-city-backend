@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Controller for handling Google OAuth authentication
+ *
+ * This controller provides methods for redirecting users to Google for authentication
+ * and handling the callback to create or authenticate users in the system.
+ */
 class GoogleAuthController extends Controller
 {
     /**
@@ -29,7 +35,11 @@ class GoogleAuthController extends Controller
     }
 
     /**
-     * Handle Google callback
+     * Handle Google authentication callback and create or update user
+     *
+     * This method handles the callback from Google OAuth, either creating a new user
+     * or updating an existing user with their Google ID. It also creates an API token
+     * for authentication.
      *
      * @return \Illuminate\Http\JsonResponse
      */
