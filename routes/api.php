@@ -25,14 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-// for admin only
-
-Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
-    Route::get('/admin/contributions', [AdminController::class, 'contributions']);
-    Route::get('/admin/users', [AdminController::class, 'users']);
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
-   
-});
+// Admin-only endpoints moved under v1 prefix below
 
 
 
@@ -49,10 +42,19 @@ Route::prefix('v1')->group(function () {
         Route::delete('routes/{route}', [RouteController::class, 'destroy']);
     });
 
+    // Admin dashboard and management endpoints
+    Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+    });
+    
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
     Route::post('login', [RouteController::class, 'login']);
-
+    
     Route::prefix('notifications')->group(function () {
         Route::post('test', [NotificationController::class, 'testNotification']);
     });
 });
+
+Route::get('admin/dashboard', [AdminController::class, 'dashboard']);
+Route::get('admin/contributions', [AdminController::class, 'contributions']);
+Route::get('admin/routes', [AdminController::class, 'routes']);
+Route::get('admin/users', [AdminController::class, 'users']);
