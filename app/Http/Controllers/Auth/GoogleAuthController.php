@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class GoogleAuthController extends Controller
 {
@@ -18,7 +19,13 @@ class GoogleAuthController extends Controller
      */
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        try {
+            $redirect = Socialite::driver('google')->stateless()->redirect();
+
+            return $redirect;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -29,8 +36,7 @@ class GoogleAuthController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
-
+            $googleUser = Socialite::driver('google')->stateless()->user();
             // Check if user already exists
             $user = User::where('email', $googleUser->email)->first();
 
@@ -40,7 +46,6 @@ class GoogleAuthController extends Controller
                     $user->update(['google_id' => $googleUser->id]);
                 }
             } else {
-                // Create new user
                 $user = User::create([
                     'name' => $googleUser->name,
                     'email' => $googleUser->email,
@@ -52,8 +57,6 @@ class GoogleAuthController extends Controller
 
             // Create token for API authentication
             $token = $user->createToken('auth-token')->plainTextToken;
-
-            // Return user data and token
             return response()->json([
                 'success' => true,
                 'message' => 'Google authentication successful',
@@ -67,7 +70,9 @@ class GoogleAuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Google authentication failed',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
             ], 400);
         }
     }
