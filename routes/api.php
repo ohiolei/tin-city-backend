@@ -7,28 +7,6 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 
-// Public routes with session support for OAuth
-Route::prefix('auth')->group(function () {
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
-
-    // Google OAuth routes with web middleware for session support
-    Route::middleware('web')->group(function () {
-        Route::get('redirect', [GoogleAuthController::class, 'redirectToGoogle']);
-        Route::get('callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-    });
-});
-
-// Protected routes
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('user', [AuthController::class, 'user']);
-    Route::post('resend-verification', [AuthController::class, 'resendVerificationEmail']);
-    Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
-});
-
-
 Route::prefix('v1')->group(function () {
     // Public endpoints
     Route::get('routes/export', [RouteController::class, 'export']);
@@ -47,5 +25,26 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('notifications')->group(function () {
         Route::post('test', [NotificationController::class, 'testNotification']);
+    });
+
+    // Public routes with session support for OAuth
+    Route::prefix('auth')->group(function () {
+        Route::post('register', [AuthController::class, 'register']);
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
+
+        // Google OAuth routes with web middleware for session support
+        Route::middleware('web')->group(function () {
+            Route::get('redirect', [GoogleAuthController::class, 'redirectToGoogle']);
+            Route::get('callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+        });
+    });
+
+    // Protected routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('user', [AuthController::class, 'user']);
+        Route::post('resend-verification', [AuthController::class, 'resendVerificationEmail']);
+        Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
     });
 });
