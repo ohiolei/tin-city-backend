@@ -32,8 +32,8 @@ class AuthController extends Controller
                 'access_token' => $token,
                 'token_type' => 'Bearer',
                 'user' => $user,
-            ], 200
-        ]);
+            ]
+        ], 200);
     }
 
     // Optional logout route

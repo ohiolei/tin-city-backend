@@ -21,10 +21,30 @@ class DatabaseSeeder extends Seeder
 
         // User::factory(10)->create();
 
+
         User::factory()->create([
             'name' => 'Test User',
                 'password' => Hash::make('password'),
             'email' => 'test1@example.com',
         ]);
+
+        // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
+        User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'user@example.com'],
+            [
+                'name' => 'Regular User',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+            ]
+        );
     }
 }

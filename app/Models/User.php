@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserBadge::class);
     }
+
+    public function is_admin(): bool
+    {
+        return $this->role === 'admin';
+    }
 }

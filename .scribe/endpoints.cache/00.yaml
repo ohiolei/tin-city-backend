@@ -43,6 +43,7 @@ endpoints:
     method: null
     route: null
     custom: []
+<<<<<<< HEAD
   -
     httpMethods:
       - POST
@@ -167,3 +168,5 @@ endpoints:
     method: null
     route: null
     custom: []
+=======
+>>>>>>> origin/staging
