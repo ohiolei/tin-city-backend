@@ -87,7 +87,7 @@ class AuthController extends Controller
      *     "token": "1|abcdefghijklmnopqrstuvwxyz"
      *   }
      * }
-     * @response 401 {
+     * @response 422 {
      *   "success": false,
      *   "message": "Invalid credentials",
      *   "errors": {
@@ -104,7 +104,7 @@ class AuthController extends Controller
                 'errors' => [
                     'email' => ['The provided credentials are incorrect.']
                 ]
-            ], 401);
+            ], 422);
         }
 
         $user = Auth::user();
