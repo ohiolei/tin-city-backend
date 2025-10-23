@@ -5,10 +5,28 @@ use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+// Badge Management Routes (Admin Only)
+Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+    Route::apiResource('badges', BadgeController::class);
+});
+
+// User Badge Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user/badges', function (Request $request) {
+        return $request->user()->badges;
+    });
+});
+
+
+// Admin-only endpoints moved under v1 prefix below
+
 
 
 Route::prefix('v1')->group(function () {
@@ -36,9 +54,17 @@ Route::prefix('v1')->group(function () {
         });
     });
 
+    // Admin dashboard and management endpoints
+    Route::middleware(['auth:sanctum', 'can:is_admin'])->group(function () {
+        Route::get('admin/dashboard', [AdminController::class, 'dashboard']);
+        Route::get('admin/contributions', [AdminController::class, 'contributions']);
+        Route::get('admin/routes', [AdminController::class, 'routes']);
+        Route::get('admin/users', [AdminController::class, 'users']);
+    });
+    
     // To test for admin and regular users Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
     Route::post('login', [RouteController::class, 'login']);
-
+    
     Route::prefix('notifications')->group(function () {
         Route::post('test', [NotificationController::class, 'testNotification']);
     });
