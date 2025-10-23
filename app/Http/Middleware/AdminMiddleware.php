@@ -14,14 +14,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        
-        if (!$user) {
-            return response()->json(['message' => 'Unauthenticated. Please provide a valid token.'], 401);
+        if (!$request->user()) {
+            return response()->json(['message' => 'Authentication required.'], 401);
         }
 
-        if ($user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized. Admins only. Your role: ' . ($user->role ?? 'none')], 403);
+        if ($request->user()->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized. Admin access required.'], 403);
         }
 
         return $next($request);
