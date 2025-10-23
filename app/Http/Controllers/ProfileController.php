@@ -2,37 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
+/**
+ * @group Profile Management
+ *
+ * APIs for managing user profiles
+ */
 class ProfileController extends Controller
 {
-    public function show(Request $request)
+    /**
+     * Display the authenticated user's profile.
+     *
+     * @group Profile Management
+     */
+    public function show(): UserResource
     {
-        return response()->json($request->user());
+        return new UserResource(auth()->user());
     }
 
-    public function update(Request $request)
+    /**
+     * Update the authenticated user's profile.
+     *
+     * @bodyParam name string optional The user's full name.
+     * @bodyParam dob date optional Date of birth (YYYY-MM-DD).
+     * @bodyParam gender string optional One of: male, female, other.
+     * @bodyParam phone string optional User's phone number.
+     * @bodyParam location string optional User's location.
+     * @bodyParam avatar file optional Avatar image file.
+     */
+    public function update(UpdateProfileRequest $request): UserResource
     {
-        $user = $request->user();
+        $user = auth()->user();
+        $data = $request->validated();
 
-        $validated = $request->validate([
-            'name' => 'nullable|string|max:255',
-            'dob' => 'nullable|date',
-            'gender' => 'nullable|string|in:male,female,other',
-            'phone' => 'nullable|string|max:20',
-            'location' => 'nullable|string|max:255',
-            'avatar' => 'nullable|file|image|max:2048',
-        ]);
-
+        // Handle S3 avatar upload
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars', 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $validated['avatar'] = Storage::disk('s3')->url($path);
+            $path = $request->file('avatar')->storePublicly('avatars', 's3');
+            $data['avatar'] = Storage::disk('s3')->url($path);
         }
 
-        $user->update($validated);
+        $user->update($data);
 
-        return response()->json($user);
+        return new UserResource($user);
     }
 }
