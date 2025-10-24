@@ -6,6 +6,8 @@ use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 
@@ -57,15 +59,29 @@ Route::prefix('v1')->group(function () {
         Route::post('test', [NotificationController::class, 'testNotification']);
     });
 
-    // Public login route (under v1 prefix)
-    Route::post('login', [AuthController::class, 'login'])->name('login');
-
-    // Protected logout route (under v1 prefix)
-    Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-
 // Admin routes group (use admin prefix)
 Route::prefix('admin')->middleware(['auth:sanctum', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard']);
+    // Public routes with session support for OAuth
+    Route::prefix('auth')->group(function () {
+        Route::post('register', [AuthController::class, 'register']);
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
+
+        // Google OAuth routes with web middleware for session support
+        Route::middleware('web')->group(function () {
+            Route::get('redirect', [GoogleAuthController::class, 'redirectToGoogle']);
+            Route::get('callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+        });
+    });
+
+    // Protected routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('user', [AuthController::class, 'user']);
+        Route::post('resend-verification', [AuthController::class, 'resendVerificationEmail']);
+        Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
+    });
 });
 
 
