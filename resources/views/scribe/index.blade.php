@@ -136,7 +136,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: October 23, 2025</li>
+        <li>Last updated: October 24, 2025</li>
     </ul>
 </div>
 
@@ -499,7 +499,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="profile-management">Profile Management</h1>
 
-    <p>APIs for managing user profiles</p>
+    
 
                                 <h2 id="profile-management-GETapi-v1-profile">Display the authenticated user&#039;s profile.</h2>
 
@@ -538,22 +538,28 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-profile">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
-access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
-access-control-allow-headers: Content-Type, Authorization, X-Requested-With
-access-control-allow-credentials: true
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Profile retrieved successfully&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;John Doe&quot;,
+        &quot;email&quot;: &quot;john@example.com&quot;,
+        &quot;phone&quot;: &quot;+1234567890&quot;,
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;dob&quot;: &quot;1990-01-01&quot;,
+        &quot;gender&quot;: &quot;male&quot;,
+        &quot;location&quot;: &quot;New York, USA&quot;,
+        &quot;points&quot;: 100,
+        &quot;avatar&quot;: &quot;https://bucket.s3.region.amazonaws.com/avatars/avatar.jpg&quot;,
+        &quot;email_verified_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -644,12 +650,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://localhost/api/v1/profile" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "name=consequatur"\
-    --form "dob=consequatur"\
-    --form "gender=consequatur"\
-    --form "phone=consequatur"\
-    --form "location=consequatur"\
-    --form "avatar=@C:\Users\Surface Pro8\AppData\Local\Temp\php32BE.tmp" </code></pre></div>
+    --form "name=John Doe Updated"\
+    --form "dob=1990-01-01"\
+    --form "gender=male"\
+    --form "phone=+1234567890"\
+    --form "location=New York, USA"\
+    --form "avatar=@C:\Users\Surface Pro8\AppData\Local\Temp\phpDBCE.tmp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -663,11 +669,11 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('name', 'consequatur');
-body.append('dob', 'consequatur');
-body.append('gender', 'consequatur');
-body.append('phone', 'consequatur');
-body.append('location', 'consequatur');
+body.append('name', 'John Doe Updated');
+body.append('dob', '1990-01-01');
+body.append('gender', 'male');
+body.append('phone', '+1234567890');
+body.append('location', 'New York, USA');
 body.append('avatar', document.querySelector('input[name="avatar"]').files[0]);
 
 fetch(url, {
@@ -679,7 +685,61 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-v1-profile">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: true,
+    &quot;message&quot;: &quot;Profile updated successfully&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;John Doe Updated&quot;,
+        &quot;email&quot;: &quot;john@example.com&quot;,
+        &quot;phone&quot;: &quot;+1234567890&quot;,
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;dob&quot;: &quot;1990-01-01&quot;,
+        &quot;gender&quot;: &quot;male&quot;,
+        &quot;location&quot;: &quot;New York, USA&quot;,
+        &quot;points&quot;: 100,
+        &quot;avatar&quot;: &quot;https://bucket.s3.region.amazonaws.com/avatars/new-avatar.jpg&quot;,
+        &quot;email_verified_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2024-01-01T00:00:00.000000Z&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Validation failed&quot;,
+    &quot;errors&quot;: {
+        &quot;name&quot;: [
+            &quot;The name field is required.&quot;
+        ],
+        &quot;avatar&quot;: [
+            &quot;The avatar must be an image.&quot;
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Failed to update profile&quot;,
+    &quot;error&quot;: &quot;Server error message&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-v1-profile" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-v1-profile"></span>:
@@ -753,57 +813,59 @@ You can check the Dev Tools console for debugging information.</code></pre>
         <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="PUTapi-v1-profile"
-               value="consequatur"
+               value="John Doe Updated"
                data-component="body">
     <br>
-<p>optional The user's full name. Example: <code>consequatur</code></p>
+<p>The user's full name. Must not be greater than 255 characters. Example: <code>John Doe Updated</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>dob</code></b>&nbsp;&nbsp;
-<small>date</small>&nbsp;
-<i>optional</i> &nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="dob"                data-endpoint="PUTapi-v1-profile"
-               value="consequatur"
+               value="1990-01-01"
                data-component="body">
     <br>
-<p>optional Date of birth (YYYY-MM-DD). Example: <code>consequatur</code></p>
+<p>Date of birth in YYYY-MM-DD format. Must be a valid date. Must be a date before <code>today</code>. Example: <code>1990-01-01</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>gender</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="gender"                data-endpoint="PUTapi-v1-profile"
-               value="consequatur"
+               value="male"
                data-component="body">
     <br>
-<p>optional One of: male, female, other. Example: <code>consequatur</code></p>
+<p>User's gender. Example: <code>male</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>male</code></li> <li><code>female</code></li> <li><code>other</code></li></ul>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="PUTapi-v1-profile"
-               value="consequatur"
+               value="+1234567890"
                data-component="body">
     <br>
-<p>optional User's phone number. Example: <code>consequatur</code></p>
+<p>User's phone number. Must not be greater than 20 characters. Example: <code>+1234567890</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>location</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
                 <input type="text" style="display: none"
                               name="location"                data-endpoint="PUTapi-v1-profile"
-               value="consequatur"
+               value="New York, USA"
                data-component="body">
     <br>
-<p>optional User's location. Example: <code>consequatur</code></p>
+<p>User's location. Must not be greater than 255 characters. Example: <code>New York, USA</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>avatar</code></b>&nbsp;&nbsp;
@@ -814,7 +876,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>optional Avatar image file. Example: <code>C:\Users\Surface Pro8\AppData\Local\Temp\php32BE.tmp</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>C:\Users\Surface Pro8\AppData\Local\Temp\phpDBCE.tmp</code></p>
         </div>
         </form>
 

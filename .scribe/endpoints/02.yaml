@@ -1,7 +1,5 @@
 name: 'Profile Management'
-description: |-
-
-  APIs for managing user profiles
+description: ''
 endpoints:
   -
     httpMethods:
@@ -29,16 +27,29 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-          access-control-allow-headers: 'Content-Type, Authorization, X-Requested-With'
-          access-control-allow-credentials: 'true'
-        description: null
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Profile retrieved successfully",
+            "data": {
+              "id": 1,
+              "name": "John Doe",
+              "email": "john@example.com",
+              "phone": "+1234567890",
+              "role": "user",
+              "dob": "1990-01-01",
+              "gender": "male",
+              "location": "New York, USA",
+              "points": 100,
+              "avatar": "https://bucket.s3.region.amazonaws.com/avatars/avatar.jpg",
+              "email_verified_at": "2024-01-01T00:00:00.000000Z",
+              "created_at": "2024-01-01T00:00:00.000000Z",
+              "updated_at": "2024-01-01T00:00:00.000000Z"
+            }
+          }
+        headers: []
+        description: ''
         custom: []
     responseFields: []
     auth: []
@@ -52,9 +63,7 @@ endpoints:
     uri: api/v1/profile
     metadata:
       groupName: 'Profile Management'
-      groupDescription: |-
-
-        APIs for managing user profiles
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: "Update the authenticated user's profile."
@@ -72,73 +81,126 @@ endpoints:
     bodyParameters:
       name:
         name: name
-        description: "optional The user's full name."
-        required: false
-        example: consequatur
+        description: "The user's full name. Must not be greater than 255 characters."
+        required: true
+        example: 'John Doe Updated'
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         custom: []
       dob:
         name: dob
-        description: 'optional Date of birth (YYYY-MM-DD).'
-        required: false
-        example: consequatur
-        type: date
+        description: 'Date of birth in YYYY-MM-DD format. Must be a valid date. Must be a date before <code>today</code>.'
+        required: true
+        example: '1990-01-01'
+        type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         custom: []
       gender:
         name: gender
-        description: 'optional One of: male, female, other.'
-        required: false
-        example: consequatur
+        description: "User's gender."
+        required: true
+        example: male
         type: string
-        enumValues: []
+        enumValues:
+          - male
+          - female
+          - other
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         custom: []
       phone:
         name: phone
-        description: "optional User's phone number."
-        required: false
-        example: consequatur
+        description: "User's phone number. Must not be greater than 20 characters."
+        required: true
+        example: '+1234567890'
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         custom: []
       location:
         name: location
-        description: "optional User's location."
-        required: false
-        example: consequatur
+        description: "User's location. Must not be greater than 255 characters."
+        required: true
+        example: 'New York, USA'
         type: string
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         custom: []
       avatar:
         name: avatar
-        description: 'optional Avatar image file.'
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
         required: false
         example: null
         type: file
         enumValues: []
         exampleWasSpecified: false
-        nullable: true
+        nullable: false
         custom: []
     cleanBodyParameters:
-      name: consequatur
-      dob: consequatur
-      gender: consequatur
-      phone: consequatur
-      location: consequatur
+      name: 'John Doe Updated'
+      dob: '1990-01-01'
+      gender: male
+      phone: '+1234567890'
+      location: 'New York, USA'
     fileParameters:
       avatar: null
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Profile updated successfully",
+            "data": {
+              "id": 1,
+              "name": "John Doe Updated",
+              "email": "john@example.com",
+              "phone": "+1234567890",
+              "role": "user",
+              "dob": "1990-01-01",
+              "gender": "male",
+              "location": "New York, USA",
+              "points": 100,
+              "avatar": "https://bucket.s3.region.amazonaws.com/avatars/new-avatar.jpg",
+              "email_verified_at": "2024-01-01T00:00:00.000000Z",
+              "created_at": "2024-01-01T00:00:00.000000Z",
+              "updated_at": "2024-01-01T00:00:00.000000Z"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+            "success": false,
+            "message": "Validation failed",
+            "errors": {
+              "name": ["The name field is required."],
+              "avatar": ["The avatar must be an image."]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+            "success": false,
+            "message": "Failed to update profile",
+            "error": "Server error message"
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth: []
     controller: null
