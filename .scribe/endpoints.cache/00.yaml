@@ -35,52 +35,6 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
-          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-          access-control-allow-headers: 'Content-Type, Authorization, X-Requested-With'
-          access-control-allow-credentials: 'true'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/badges
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display a listing of the badges.'
-      description: ''
-      authenticated: false
-      deprecated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: '[{"id":3,"name":"Premium Membership","description":"Grants access to exclusive content and rewards.","points_required":50,"icon":null,"created_at":"2025-10-21T11:52:35.000000Z","updated_at":"2025-10-21T11:52:35.000000Z"},{"id":4,"name":"Membership","description":"Grants access to exclusive content and rewards.","points_required":50,"icon":null,"created_at":"2025-10-21T11:52:45.000000Z","updated_at":"2025-10-21T11:52:45.000000Z"},{"id":5,"name":"Lorem","description":"Grants access to exclusive content and rewards.","points_required":50,"icon":null,"created_at":"2025-10-21T11:52:54.000000Z","updated_at":"2025-10-21T11:52:54.000000Z"},{"id":6,"name":"Bronze Contributor","description":"Earned 100 points","points_required":100,"icon":"bronze","created_at":"2025-10-21T16:30:57.000000Z","updated_at":"2025-10-21T16:30:57.000000Z"},{"id":7,"name":"Bronze Contributor","description":"Earned 100 points","points_required":60,"icon":"bronze","created_at":"2025-10-21T16:31:16.000000Z","updated_at":"2025-10-21T16:31:16.000000Z"},{"id":8,"name":"Bronze Contributor","description":"Earned 100 points","points_required":200,"icon":"Gold","created_at":"2025-10-21T16:31:32.000000Z","updated_at":"2025-10-21T16:31:32.000000Z"}]'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-          access-control-allow-headers: 'Content-Type, Authorization, X-Requested-With'
-          access-control-allow-credentials: 'true'
         description: null
         custom: []
     responseFields: []
@@ -92,13 +46,13 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/badges
+    uri: api/v1/auth/register
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store a newly created badge in storage.'
+      title: 'Register a new user'
       description: ''
       authenticated: false
       deprecated: false
@@ -113,276 +67,85 @@ endpoints:
     bodyParameters:
       name:
         name: name
-        description: 'Must not be greater than 255 characters.'
+        description: 'The name of the user.'
         required: true
-        example: b
+        example: 'John Doe'
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
-      description:
-        name: description
-        description: ''
+      email:
+        name: email
+        description: 'The email of the user.'
         required: true
-        example: 'Eius et animi quos velit et.'
+        example: john@example.com
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
-      points_required:
-        name: points_required
-        description: 'Must be at least 0.'
+      password:
+        name: password
+        description: 'The password of the user.'
         required: true
-        example: 60
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-      icon:
-        name: icon
-        description: ''
-        required: false
-        example: architecto
+        example: password
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      phone:
+        name: phone
+        description: 'The phone number of the user.'
+        required: true
+        example: '+1234567890'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
         nullable: true
         custom: []
-    cleanBodyParameters:
-      name: b
-      description: 'Eius et animi quos velit et.'
-      points_required: 60
-      icon: architecto
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: 'api/badges/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Display the specified badge.'
-      description: ''
-      authenticated: false
-      deprecated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the badge.'
+      password_confirmation:
+        name: password_confirmation
+        description: 'The password confirmation.'
         required: true
-        example: 3
-        type: integer
+        example: password
+        type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
-    cleanUrlParameters:
-      id: 3
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    cleanBodyParameters:
+      name: 'John Doe'
+      email: john@example.com
+      password: password
+      phone: '+1234567890'
+      password_confirmation: password
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '{"id":3,"name":"Premium Membership","description":"Grants access to exclusive content and rewards.","points_required":50,"icon":null,"created_at":"2025-10-21T11:52:35.000000Z","updated_at":"2025-10-21T11:52:35.000000Z"}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-          access-control-allow-headers: 'Content-Type, Authorization, X-Requested-With'
-          access-control-allow-credentials: 'true'
-        description: null
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/badges/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Update the specified badge in storage.'
-      description: ''
-      authenticated: false
-      deprecated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the badge.'
-        required: true
-        example: 3
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: 3
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'Must not be greater than 255 characters.'
-        required: true
-        example: b
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-      description:
-        name: description
+        status: 201
+        content: |-
+          {
+            "success": true,
+            "message": "Account registered successfully",
+            "data": {
+              "user": {}
+            }
+          }
+        headers: []
         description: ''
-        required: true
-        example: 'Eius et animi quos velit et.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
         custom: []
-      points_required:
-        name: points_required
-        description: 'Must be at least 0.'
-        required: true
-        example: 60
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-      icon:
-        name: icon
-        description: ''
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: true
-        custom: []
-    cleanBodyParameters:
-      name: b
-      description: 'Eius et animi quos velit et.'
-      points_required: 60
-      icon: architecto
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/badges/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Remove the specified badge from storage.'
-      description: ''
-      authenticated: false
-      deprecated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the badge.'
-        required: true
-        example: 3
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanUrlParameters:
-      id: 3
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/user/badges
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      deprecated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-          access-control-allow-headers: 'Content-Type, Authorization, X-Requested-With'
-          access-control-allow-credentials: 'true'
-        description: null
+        status: 422
+        content: |-
+          {
+            "success": false,
+            "message": "The given data was invalid.",
+            "errors": {}
+          }
+        headers: []
+        description: ''
         custom: []
     responseFields: []
     auth: []
@@ -390,17 +153,16 @@ endpoints:
     method: null
     route: null
     custom: []
-<<<<<<< HEAD
   -
     httpMethods:
       - POST
-    uri: api/login
+    uri: api/v1/auth/login
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: 'Login user'
       description: ''
       authenticated: false
       deprecated: false
@@ -415,29 +177,56 @@ endpoints:
     bodyParameters:
       email:
         name: email
-        description: 'Must be a valid email address.'
+        description: 'The email of the user.'
         required: true
-        example: qkunze@example.com
+        example: john@example.com
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
       password:
         name: password
-        description: ''
+        description: 'The password of the user.'
         required: true
-        example: consequatur
+        example: password
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
     cleanBodyParameters:
-      email: qkunze@example.com
-      password: consequatur
+      email: john@example.com
+      password: password
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Login successful",
+            "data": {
+              "user": {},
+              "token": "1|abcdefghijklmnopqrstuvwxyz"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+            "success": false,
+            "message": "Invalid credentials",
+            "errors": {
+              "email": ["The provided credentials are incorrect."]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth: []
     controller: null
@@ -447,13 +236,13 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/logout
+    uri: api/v1/auth/forgot-password
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: 'Send password reset link'
       description: ''
       authenticated: false
       deprecated: false
@@ -465,10 +254,42 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email of the user.'
+        required: true
+        example: john@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      email: john@example.com
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Password reset link sent to your email"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "success": false,
+            "message": "Failed to send password reset link",
+            "errors": {}
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth: []
     controller: null
@@ -478,13 +299,13 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/admin/dashboard
+    uri: api/v1/auth/redirect
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: 'Redirect to Google for authentication'
       description: ''
       authenticated: false
       deprecated: false
@@ -501,12 +322,36 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
+        status: 302
+        content: |-
+          {
+            "Redirects to Google OAuth page"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+            "success": false,
+            "message": "Failed to redirect to Google",
+            "error": "Error message"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+              "message": "Server Error"
+          }
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IkdRenBwSnhHL2U1c29ZeW4zRHdDbHc9PSIsInZhbHVlIjoiWFNJZ3JsOU1pWUpaKzlMQ0p0SU9sRjA2emFpeWQyVjhldm5jWHNZeklxYXE4YzFqU045cDd0dDBUYitVaVpDbDF0Sk1rTmMvVXlmSHhpWjIraFk0RDF6di9rMXlRMGJ1SHhUZkFWdmZQdnhDR2k2NURoWDV6bUxXdEJ0cVBta04iLCJtYWMiOiJhMWFlYmIwYTQwZDU5ZTEyMDI5ZWQ2NjBiODc5ZTM4ZDE4YWY3ZjA2NmY0MzBlNDhjMTExZjRkNjY5MzkyZTMwIiwidGFnIjoiIn0%3D; expires=Mon, 27 Oct 2025 10:17:00 GMT; Max-Age=7200; path=/; secure; samesite=lax; tin-city-metro-session=eyJpdiI6IlBJbjhrSThpYlE0UkRuaXpCMEM2dWc9PSIsInZhbHVlIjoiL21aN1I4TEtvUGUrSTBZaEpnQWFkOWliTHJ1YkdDUlVJYjE3TFFSRU9WTGRnSm1CajFTVmYvSm1tSm5hYVpyTHpkVTlyMUdsditPNnAzVmZ2SDg3cEZITExHS0Z4QnlZQlpwSkNPTjN2T2lvNVppL0YrODlvM3l4Y3Z6c0NaSzIiLCJtYWMiOiJkMWVhMjAyYWNkZTYyYzU1MmNmN2M4N2Q2OGU5YTQ0YjExYWE4NjYzM2QxMzVkNTg0ZGQ1MDdmMmYxZTQ4YWMzIiwidGFnIjoiIn0%3D; expires=Mon, 27 Oct 2025 10:17:00 GMT; Max-Age=7200; path=/; secure; httponly; samesite=lax'
         description: null
         custom: []
     responseFields: []
@@ -515,5 +360,302 @@ endpoints:
     method: null
     route: null
     custom: []
-=======
->>>>>>> origin/staging
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/auth/callback
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Handle Google authentication callback and create or update user'
+      description: |-
+        This method handles the callback from Google OAuth, either creating a new user
+        or updating an existing user with their Google ID. It also creates an API token
+        for authentication.
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Google authentication successful",
+            "data": {
+              "user": {},
+              "token": "1|abcdefghijklmnopqrstuvwxyz"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "success": false,
+            "message": "Google authentication failed",
+            "error": "Error message",
+            "file": "/path/to/file.php",
+            "line": 123
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/logout
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Logout user'
+      description: ''
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Logged out successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+            "success": false,
+            "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/user
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get authenticated user'
+      description: ''
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "data": {
+              "user": {}
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+            "success": false,
+            "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/resend-verification
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Resend verification email'
+      description: ''
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Verification email resent successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "success": false,
+            "message": "Email already verified"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/verify-email/{id}/{hash}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Verify email'
+      description: ''
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the verify email.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      hash:
+        name: hash
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: architecto
+      hash: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "success": true,
+            "message": "Email verified successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "success": false,
+            "message": "Invalid verification link"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "success": false,
+            "message": "User not found"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

@@ -9,14 +9,12 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
 
 
 
 // Get authenticated user
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-
 });
 
 
@@ -59,9 +57,11 @@ Route::prefix('v1')->group(function () {
         Route::post('test', [NotificationController::class, 'testNotification']);
     });
 
-// Admin routes group (use admin prefix)
-Route::prefix('admin')->middleware(['auth:sanctum', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
-    Route::get('dashboard', [AdminController::class, 'dashboard']);
+    // Admin routes group (use admin prefix)
+    Route::prefix('admin')->middleware(['auth:sanctum', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
+        Route::get('dashboard', [AdminController::class, 'dashboard']);
+    });
+
     // Public routes with session support for OAuth
     Route::prefix('auth')->group(function () {
         Route::post('register', [AuthController::class, 'register']);
@@ -83,7 +83,3 @@ Route::prefix('admin')->middleware(['auth:sanctum', \App\Http\Middleware\AdminMi
         Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
     });
 });
-
-
-});
-
