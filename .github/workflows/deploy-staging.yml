@@ -136,7 +136,6 @@ jobs:
           sudo chmod 654 .env
           
           sudo composer install --no-dev --optimize-autoloader
-          sudo php artisan key:generate
 
           sudo php artisan migrate --force
 
