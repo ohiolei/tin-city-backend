@@ -128,7 +128,7 @@ jobs:
           sudo echo "DB_USERNAME=${{secrets.STAGING_DB_USERNAME}}" >> .env
           sudo echo 'DB_PASSWORD="${{secrets.STAGING_DB_PASSWORD}}"' >> .env
           sudo echo "DB_PORT=5432" >> .env
-          sudo echo "DB_CONNECTION=postgres" >> .env
+          sudo echo "DB_CONNECTION=pgsql" >> .env
           
           # add AWS credentials to .env
           #sudo echo 'AWS_ACCESS_KEY_ID="${{secrets.AWS_ACCESS_KEY_ID}}"' >> .env
@@ -137,6 +137,6 @@ jobs:
           
           sudo composer install --no-dev --optimize-autoloader
 
-          sudo php artisan migrate --force
+          sudo php artisan migrate
 
           echo "Deployment to staging completed successfully."
