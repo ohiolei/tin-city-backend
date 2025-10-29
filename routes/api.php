@@ -10,15 +10,6 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AdminController;
 
-
-
-// Get authenticated user
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
-
 Route::prefix('v1')->group(function () {
     Route::prefix('routes')->group(function () {
         // Public endpoints
@@ -73,13 +64,14 @@ Route::prefix('v1')->group(function () {
             Route::get('redirect', [GoogleAuthController::class, 'redirectToGoogle']);
             Route::get('callback', [GoogleAuthController::class, 'handleGoogleCallback']);
         });
-    });
 
-    // Protected routes
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('logout', [AuthController::class, 'logout']);
-        Route::get('user', [AuthController::class, 'user']);
-        Route::post('resend-verification', [AuthController::class, 'resendVerificationEmail']);
-        Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
+
+        // Protected routes
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('logout', [AuthController::class, 'logout']);
+            Route::get('user', [AuthController::class, 'user']);
+            Route::post('resend-verification', [AuthController::class, 'resendVerificationEmail']);
+            Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
+        });
     });
 });

@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\URL;
  *
  * This controller provides methods for user registration, login, logout,
  * password reset, and email verification.
+ *
+ * @group Authentication
+ * 
  */
 class AuthController extends Controller
 {

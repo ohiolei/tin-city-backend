@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Log;
  *
  * This controller provides methods for redirecting users to Google for authentication
  * and handling the callback to create or authenticate users in the system.
+ *
+ * @group Google Authentication
  */
 class GoogleAuthController extends Controller
 {
