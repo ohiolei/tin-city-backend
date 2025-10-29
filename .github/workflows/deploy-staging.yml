@@ -71,9 +71,9 @@ jobs:
           # Define variables
           REPO_URL="https://${{secrets.PAT}}@github.com/The-Nebula-Workspace/tin-city-backend.git"
           BRANCH="staging"
-          DEPLOY_DIR="/var/www/"
-          TEMP_DIR="/var/www/deploy-temp/"
-          APP_DIR="/var/www/tin-city-backend/"
+          DEPLOY_DIR="/var/www"
+          TEMP_DIR="/var/www/deploy-temp"
+          APP_DIR="/var/www/tin-city-backend"
           DOMAIN="api-staging.tincitymetroapp.ng"
 
           cd $DEPLOY_DIR
@@ -94,12 +94,6 @@ jobs:
 
             sudo git config --global user.name "Victor Ogunshola"
             sudo git config --global user.email "vogunshola@yahoo.com"
-
-            sudo git checkout $BRANCH
-
-            sudo composer install --no-dev --optimize-autoloader
-            sudo cp .env.example .env
-            sudo php artisan key:generate
           fi
           
           echo "Repository already cloned. Pulling latest changes..."
@@ -137,6 +131,8 @@ jobs:
           sudo chmod 775 .env
           
           sudo composer install #--no-dev --optimize-autoloader
+          sudo cp .env.example .env
+          sudo php artisan key:generate
 
           sudo php artisan migrate --force
 
