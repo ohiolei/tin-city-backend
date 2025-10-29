@@ -85,7 +85,7 @@ jobs:
             cd $APP_DIR
             sudo git checkout $BRANCH
             sudo chown -R www-data:www-data ${APP_DIR}/storage
-            sudo chown -R www-data:www-data ${APP_DIR}/bootstrap/cache ${APP_DIR}/storage/logs
+            sudo chown -R www-data:www-data ${APP_DIR}/bootstrap/cache ${APP_DIR}/storage/logs/laravel.log
             sudo chown -R www-data:www-data ${APP_DIR}
             sudo chmod -R 775 ${APP_DIR}
             sudo chmod -R 775 ${APP_DIR}/storage
