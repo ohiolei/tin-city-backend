@@ -110,8 +110,8 @@ jobs:
 
           # configure nginx domain for ${DOMAIN}
           if [ ! -f /etc/nginx/sites-available/${DOMAIN} ]; then
-            sudo rm /etc/nginx/sites-enabled/${DOMAIN}
-            sudo cp /var/www/html/nginx/nginx.conf /etc/nginx/sites-available/${DOMAIN}
+            #sudo rm /etc/nginx/sites-enabled/${DOMAIN}
+            sudo cp nginx/nginx.conf /etc/nginx/sites-available/${DOMAIN}
             sudo ln -s /etc/nginx/sites-available/${DOMAIN} /etc/nginx/sites-enabled/${DOMAIN}
             sudo certbot --nginx -d api-staging.tincitymetroapp.ng --non-interactive --agree-tos -m vogunshola@yahoo.com
             sudo service nginx restart
