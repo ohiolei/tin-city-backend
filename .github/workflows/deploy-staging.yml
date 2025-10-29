@@ -131,11 +131,11 @@ jobs:
           sudo echo "DB_CONNECTION=pgsql" >> .env
           
           # add AWS credentials to .env
-          #sudo echo 'AWS_ACCESS_KEY_ID="${{secrets.AWS_ACCESS_KEY_ID}}"' >> .env
-          #sudo echo 'AWS_SECRET_ACCESS_KEY="${{secrets.AWS_SECRET_ACCESS_KEY}}"' >> .env
+          sudo echo 'AWS_ACCESS_KEY_ID="${{secrets.AWS_ACCESS_KEY_ID}}"' >> .env
+          sudo echo 'AWS_SECRET_ACCESS_KEY="${{secrets.AWS_SECRET_ACCESS_KEY}}"' >> .env
           sudo chmod 654 .env
           
-          sudo composer install --no-dev --optimize-autoloader
+          sudo composer install #--no-dev --optimize-autoloader
 
           sudo php artisan migrate
 
