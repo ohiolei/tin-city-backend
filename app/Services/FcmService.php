@@ -19,9 +19,10 @@ class FcmService
 
     private function getAccessToken()
     {
-        // dd(storage_path('app/firebase/service-account.json'));
         $client = new Client();
-        $client->setAuthConfig(storage_path('app/firebase/tin-city-metro-bus-firebase-adminsdk-fbsvc-95c0be2807.json'));
+        $credentialsJson = base64_decode(config('services.fcm.credentials'));
+        $credentials = json_decode($credentialsJson, true);
+        $client->setAuthConfig($credentials);
         $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
         $token = $client->fetchAccessTokenWithAssertion();
 
